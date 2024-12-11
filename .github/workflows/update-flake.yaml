@@ -41,10 +41,9 @@ jobs:
 
       - name: Update flake.nix with new hashes
         run: |
-          sed -i "s|url = \"https://github.com/zen-browser/desktop/releases/download.*|url = \"https://github.com/zen-browser/desktop/releases/download/$release_tag/zen.linux-specific.tar.bz2\";|" flake.nix
-          sed -i "s|sha256 = \".*\";|sha256 = \"$specific_sha256\";|" flake.nix
-          sed -i "s|url = \"https://github.com/zen-browser/desktop/releases/download.*|url = \"https://github.com/zen-browser/desktop/releases/download/$release_tag/zen.linux-generic.tar.bz2\";|" flake.nix
-          sed -i "s|sha256 = \".*\";|sha256 = \"$generic_sha256\";|" flake.nix
+          sed -i "s|version = \".*\";|version = \"$release_tag\";|" flake.nix
+          sed -i "s|specific_sha256 = \".*\";|specific_sha256 = \"$specific_sha256\";|" flake.nix
+          sed -i "s|generic_sha256 = \".*\";|generic_sha256 = \"$generic_sha256\";|" flake.nix
 
       - name: Commit and push changes
         run: |
@@ -52,6 +51,6 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add flake.nix
           git commit -m "Update flake to latest release with recalculated hashes"
-          git push origin HEAD:master
+          git push origin HEAD:main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
