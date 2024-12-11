@@ -93,9 +93,14 @@
             sha256 = downloadData.sha256;
           };
 
+          unpackPhase = ''
+            tar -xjf $src
+          '';
+
           desktopSrc = ./.;
 
           phases = [
+            "unpackPhase"
             "installPhase"
             "fixupPhase"
           ];
