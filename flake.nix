@@ -88,19 +88,14 @@
           inherit version;
           pname = "zen-browser";
 
-          src = builtins.fetchurl {
+          src = builtins.fetchTarball {
             url = downloadData.url;
             sha256 = downloadData.sha256;
           };
 
-          unpackPhase = ''
-            tar -xjf $src
-          '';
-
           desktopSrc = ./.;
 
           phases = [
-            "unpackPhase"
             "installPhase"
             "fixupPhase"
           ];

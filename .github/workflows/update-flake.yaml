@@ -25,19 +25,21 @@ jobs:
           latest_release=$(curl -s https://api.github.com/repos/zen-browser/desktop/releases/latest | jq -r '.tag_name')
           echo "release_tag=$latest_release" >> $GITHUB_ENV
 
-      - name: Download specific tarball and calculate sha256
+      - name: Download and unpack specific tarball, then calculate sha256
         id: specific_sha256
         run: |
           curl -L -o zen.linux-specific.tar.bz2 https://github.com/zen-browser/desktop/releases/download/$release_tag/zen.linux-specific.tar.bz2
-          sha256=$(nix hash file zen.linux-specific.tar.bz2)
-          echo "specific_sha256=$sha256" >> $GITHUB_ENV
+          tar -xjf zen.linux-specific.tar.bz2 -C ./unpacked-specific
+          specific_sha256=$(nix hash path ./unpacked-specific --base32)
+          echo "specific_sha256=$specific_sha256" >> $GITHUB_ENV
 
-      - name: Download generic tarball and calculate sha256
+      - name: Download and unpack generic tarball, then calculate sha256
         id: generic_sha256
         run: |
           curl -L -o zen.linux-generic.tar.bz2 https://github.com/zen-browser/desktop/releases/download/$release_tag/zen.linux-generic.tar.bz2
-          sha256=$(nix hash file zen.linux-generic.tar.bz2)
-          echo "generic_sha256=$sha256" >> $GITHUB_ENV
+          tar -xjf zen.linux-generic.tar.bz2 -C ./unpacked-generic
+          generic_sha256=$(nix hash path ./unpacked-generic --base32)
+          echo "generic_sha256=$generic_sha256" >> $GITHUB_ENV
 
       - name: Update flake.nix with new hashes
         run: |
