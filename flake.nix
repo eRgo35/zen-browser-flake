@@ -10,17 +10,17 @@
     let
       system = "x86_64-linux";
       version = "latest"; # This will be updated dynamically
-      specific_sha256 = "latest";
-      generic_sha256 = "latest";
+      specific_sha256 = "sha256-hW/M4QgfIzhg78ZC2YhW4wxA/fV/djHhB4oRf6n9adU=";
+      generic_sha256 = "sha256-hW/M4QgfIzhg78ZC2YhW4wxA/fV/djHhB4oRf6n9adU=";
 
       downloadUrl = {
         "specific" = {
-          url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-specific.tar.bz2";
-          sha256 = "${specific_sha256}"; # This will be updated dynamically
+          url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.0/zen.linux-generic.tar.bz2";
+          sha256 = "sha256-hW/M4QgfIzhg78ZC2YhW4wxA/fV/djHhB4oRf6n9adU="; # This will be updated dynamically
         };
         "generic" = {
-          url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-generic.tar.bz2";
-          sha256 = "${generic_sha256}"; # This will be updated dynamically
+          url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.0/zen.linux-generic.tar.bz2";
+          sha256 = "sha256-hW/M4QgfIzhg78ZC2YhW4wxA/fV/djHhB4oRf6n9adU="; # This will be updated dynamically
         };
       };
 
