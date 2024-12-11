@@ -9,9 +9,9 @@
     { self, nixpkgs }:
     let
       system = "x86_64-linux";
-      version = "latest"; # This will be updated dynamically
-      specific_sha256 = "latest"; # This will be updated dynamically
-      generic_sha256 = "latest"; # This will be updated dynamically
+      version = "1.0.2-b.0"; # This will be updated dynamically
+      specific_sha256 = "sha256-UyBJyUbmm0trxxGVq8xQRoI1eGnGgpXRVvIpE4UOaS0="; # This will be updated dynamically
+      generic_sha256 = "sha256-hW/M4QgfIzhg78ZC2YhW4wxA/fV/djHhB4oRf6n9adU="; # This will be updated dynamically
 
       downloadUrl = {
         "specific" = {
