@@ -10,8 +10,8 @@
     let
       system = "x86_64-linux";
       version = "1.0.2-b.0"; # This will be updated dynamically
-      specific_sha256 = "sha256-UyBJyUbmm0trxxGVq8xQRoI1eGnGgpXRVvIpE4UOaS0="; # This will be updated dynamically
-      generic_sha256 = "sha256-hW/M4QgfIzhg78ZC2YhW4wxA/fV/djHhB4oRf6n9adU="; # This will be updated dynamically
+      specific_sha256 = "067m7g48nfa366ajn3flphnwkx8msc034r6px8ml66mbj7awjw4x"; # This will be updated dynamically
+      generic_sha256 = "02x4w2fq80s1za05s0gg9r2drr845bln80h5hbwhvp1gxq9jf0g2"; # This will be updated dynamically
 
       downloadUrl = {
         "specific" = {
