@@ -88,7 +88,7 @@
           inherit version;
           pname = "zen-browser";
 
-          src = builtins.fetchTarball {
+          src = builtins.fetchurl {
             url = downloadData.url;
             sha256 = downloadData.sha256;
           };
