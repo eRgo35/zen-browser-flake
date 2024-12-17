@@ -37,13 +37,13 @@ jobs:
           curl -L -o zen.linux-specific.tar.bz2 https://github.com/zen-browser/desktop/releases/download/$release_tag/zen.linux-specific.tar.bz2
           mkdir -p ./unpacked-specific
           tar -xjf zen.linux-specific.tar.bz2 -C ./unpacked-specific
-          specific_sha256=$(nix hash path ./unpacked-specific --base32)
+          specific_sha256=$(nix hash path ./unpacked-specific/zen --base32)
           echo "specific_sha256=$specific_sha256" >> $GITHUB_ENV
 
           curl -L -o zen.linux-generic.tar.bz2 https://github.com/zen-browser/desktop/releases/download/$release_tag/zen.linux-generic.tar.bz2
           mkdir -p ./unpacked-generic
           tar -xjf zen.linux-generic.tar.bz2 -C ./unpacked-generic
-          generic_sha256=$(nix hash path ./unpacked-generic --base32)
+          generic_sha256=$(nix hash path ./unpacked-generic/zen --base32)
           echo "generic_sha256=$generic_sha256" >> $GITHUB_ENV
 
           sed -i "s|version = \".*\";|version = \"$release_tag\";|" flake.nix
