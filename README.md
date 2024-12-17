@@ -6,10 +6,13 @@ Just add it to your NixOS `flake.nix` or home-manager:
 
 ```nix
 inputs = {
-  zen-browser.url = "github:MarceColl/zen-browser-flake";
+  zen-browser.url = "github:eRgo35/zen-browser-flake";
   ...
 }
 ```
+
+This is a fork of the original zen-browser-flake repo created by MarceColl.
+GitHub Action is set to automatically update the repo with latest hash at midnight UTC
 
 ## Packages
 
