@@ -9,19 +9,11 @@
     { self, nixpkgs }:
     let
       system = "x86_64-linux";
-      version = "1.0.2-b.3"; # This will be updated dynamically
-      specific_sha256 = "0gjrvsq83l6424ijii2w0c43f2nkf6n04hb2bc9wf1yyq7g3s2nc"; # This will be updated dynamically
-      generic_sha256 = "1kv44fkql60rjgqcqsfdhbi4zr8bi91fkswlsk5d6mwj8nw1clmj"; # This will be updated dynamically
+      version = "1.0.2-b.5"; # This will be updated dynamically
 
       downloadUrl = {
-        "specific" = {
-          url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-specific.tar.bz2";
-          sha256 = specific_sha256;
-        };
-        "generic" = {
-          url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-generic.tar.bz2";
-          sha256 = generic_sha256;
-        };
+        url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.bz2";
+        sha256 = "sha256:1xp0z86l7z661cwckgr623gwwjsy3h66900xqjq6dvgx5a3njbxi";
       };
 
       pkgs = import nixpkgs {
@@ -80,9 +72,8 @@
         ]);
 
       mkZen =
-        { variant }:
         let
-          downloadData = downloadUrl."${variant}";
+          downloadData = downloadUrl;
         in
         pkgs.stdenv.mkDerivation {
           inherit version;
@@ -133,9 +124,7 @@
     in
     {
       packages."${system}" = {
-        generic = mkZen { variant = "generic"; };
-        specific = mkZen { variant = "specific"; };
-        default = self.packages."${system}".specific;
+        default = mkZen;
       };
     };
 }

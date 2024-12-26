@@ -25,36 +25,26 @@ jobs:
           latest_release=$(curl -s https://api.github.com/repos/zen-browser/desktop/releases/latest | jq -r '.tag_name')
           echo "release_tag=$latest_release" >> $GITHUB_ENV
 
-      - name: Download and unpack specific tarball, then calculate sha256
-        id: specific_sha256
+      - name: Download and unpack tarball, then calculate sha256
+        id: calculate_sha256
         run: |
-          curl -L -o zen.linux-specific.tar.bz2 https://github.com/zen-browser/desktop/releases/download/$release_tag/zen.linux-specific.tar.bz2
-          mkdir -p ./unpacked-specific
-          tar -xjf zen.linux-specific.tar.bz2 -C ./unpacked-specific
-          specific_sha256=$(nix hash path ./unpacked-specific/zen --base32)
-          echo "specific_sha256=$specific_sha256" >> $GITHUB_ENV
+          curl -L -o zen.linux-x86_64.tar.bz2 https://github.com/zen-browser/desktop/releases/download/$release_tag/zen.linux-x86_64.tar.bz2
+          mkdir -p ./unpacked
+          tar -xjf zen.linux-x86_64.tar.bz2 -C ./unpacked
+          sha256=$(nix hash path ./unpacked --base32)
+          echo "sha256=$sha256" >> $GITHUB_ENV
 
-      - name: Download and unpack generic tarball, then calculate sha256
-        id: generic_sha256
-        run: |
-          curl -L -o zen.linux-generic.tar.bz2 https://github.com/zen-browser/desktop/releases/download/$release_tag/zen.linux-generic.tar.bz2
-          mkdir -p ./unpacked-generic
-          tar -xjf zen.linux-generic.tar.bz2 -C ./unpacked-generic
-          generic_sha256=$(nix hash path ./unpacked-generic/zen --base32)
-          echo "generic_sha256=$generic_sha256" >> $GITHUB_ENV
-
-      - name: Update flake.nix with new hashes
+      - name: Update flake.nix with new version and hash
         run: |
           sed -i "s|version = \".*\";|version = \"$release_tag\";|" flake.nix
-          sed -i "s|specific_sha256 = \".*\";|specific_sha256 = \"$specific_sha256\";|" flake.nix
-          sed -i "s|generic_sha256 = \".*\";|generic_sha256 = \"$generic_sha256\";|" flake.nix
+          sed -i "s|sha256 = \".*\";|sha256 = \"$sha256\";|" flake.nix
 
       - name: Commit and push changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add flake.nix
-          git commit -m "Update flake to latest release with recalculated hashes"
+          git commit -m "Update flake to latest release with recalculated hash"
           git push origin HEAD:master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
