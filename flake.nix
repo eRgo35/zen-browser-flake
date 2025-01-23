@@ -9,11 +9,11 @@
     { self, nixpkgs }:
     let
       system = "x86_64-linux";
-      version = "1.6b"; # This will be updated dynamically
+      version = "1.7.2b"; # This will be updated dynamically
 
       downloadUrl = {
         url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.bz2";
-        sha256 = "099mjcs3avw2r0b4ikp5qq35qj2farx62zhz9dw10gp6qijcz7pd";
+        sha256 = "0w4jrflbqf1k5bzm6867g4kvi1rj5ssid3fhb3vzqczbxjpbnnmm";
       };
 
       pkgs = import nixpkgs {
